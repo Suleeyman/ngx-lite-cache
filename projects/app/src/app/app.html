@@ -1,0 +1,19 @@
+<div class="container">
+  <button class="reload-btn" (click)="loadPosts()">Reload</button>
+
+  @if (posts().length > 0) {
+    <div class="posts-section">
+      <h2>Posts</h2>
+      @for (post of posts(); track post.id) {
+        <div class="post">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.body }}</p>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="loading">Loading posts...</p>
+  }
+</div>
+
+<router-outlet />
