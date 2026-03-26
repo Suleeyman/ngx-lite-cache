@@ -63,28 +63,9 @@ export class ApiService {
 - `CACHING_ENTRY`: Set a cache key for the request
 - `CACHING_INVALIDATE`: Invalidate a specific cache entry
 
-### Cache Service
-
-The library provides a `CacheService` for advanced cache management:
-
-```typescript
-import { CacheService } from 'ngx-lite-cache';
-
-constructor(private cache: CacheService) {}
-
-// Manually get cached data
-const cachedData = this.cache.get('cache-key');
-
-// Manually set cached data
-this.cache.put('cache-key', responseData);
-
-// Clear specific cache entry
-this.cache.delete('cache-key');
-```
-
 ## Usage Examples
 
-### Basic Caching
+### Caching GET request
 
 ```typescript
 import { HttpClient, HttpContext } from '@angular/common/http';
@@ -106,7 +87,7 @@ import { CACHING_ENTRY, CACHING_INVALIDATE } from 'ngx-lite-cache';
 updateUserProfile(userId: string, data: any) {
   return this.http.put(`/api/users/${userId}`, data, {
     context: new HttpContext()
-      .set(CACHING_INVALIDATE, `/users/${userId}`), // Invalidate the cached profile
+      .set(CACHING_INVALIDATE, `/users/${userId}`), // Invalidate the cached profile after the request is *ok*
   });
 }
 ```
@@ -173,7 +154,14 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 💬 Feedback
 
-If you have any questions or issues, please open an issue on GitHub or contact the maintainers.
+Have suggestions, feedback, or need support? Open an issue or start a discussion — we’d love to hear from you.
 
+## Contribution
+
+We welcome all kinds of contributions!
+
+**♥️ Financial support**
+
+If you want to support me financially you can [buy me a coffee](https://ko-fi.com/ysuleyman) it will certainly motivate me on continously improving the REST API. May Allah rewards you !
