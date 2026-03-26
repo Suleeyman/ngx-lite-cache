@@ -1,64 +1,167 @@
 # NgxLiteCache
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+A lightweight, simple HTTP caching library for Angular applications. This library provides an easy way to cache HTTP responses using Angular's HttpClient interceptors, reducing unnecessary network requests and improving application performance.
 
-## Code scaffolding
+## Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- 🚀 **Simple Integration**: Easy to integrate with existing Angular applications
+- ⚡ **Performance Boost**: Cache HTTP responses to reduce network requests
+- 🎯 **Selective Caching**: Control which requests to cache using HttpContext
+- 🔄 **Cache Invalidation**: Support for cache invalidation when needed
+- 📦 **Lightweight**: Minimal dependencies, focused on HTTP caching
+- 🔧 **TypeScript**: Full TypeScript support with proper typing
+
+## Installation
 
 ```bash
-ng generate component component-name
+npm install ngx-lite-cache
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Quick Start
+
+### 1. Configure HttpClient with the Cache Interceptor
+
+In your `app.config.ts`:
+
+```typescript
+import { ApplicationConfig } from '@angular/core';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { cacheInterceptor } from 'ngx-lite-cache';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideHttpClient(withInterceptors([cacheInterceptor])),
+    // ... other providers
+  ],
+};
+```
+
+### 2. Use HttpContext to Cache Requests
+
+```typescript
+import { HttpClient, HttpContext } from '@angular/common/http';
+import { CACHING_ENTRY } from 'ngx-lite-cache';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ApiService {
+  constructor(private http: HttpClient) {}
+
+  getPosts() {
+    return this.http.get('/api/posts', {
+      context: new HttpContext().set(CACHING_ENTRY, 'posts'),
+    });
+  }
+}
+```
+
+## API Reference
+
+### HttpContext Tokens
+
+- `CACHING_ENTRY`: Set a cache key for the request
+- `CACHING_INVALIDATE`: Invalidate a specific cache entry
+
+## Usage Examples
+
+### Caching GET request
+
+```typescript
+import { HttpClient, HttpContext } from '@angular/common/http';
+import { CACHING_ENTRY } from 'ngx-lite-cache';
+
+getUserProfile(userId: string) {
+  return this.http.get(`/api/users/${userId}`, {
+    context: new HttpContext().set(CACHING_ENTRY, `/users/${userId}`),
+  });
+}
+```
+
+### Cache Invalidation
+
+```typescript
+import { HttpClient, HttpContext } from '@angular/common/http';
+import { CACHING_ENTRY, CACHING_INVALIDATE } from 'ngx-lite-cache';
+
+updateUserProfile(userId: string, data: any) {
+  return this.http.put(`/api/users/${userId}`, data, {
+    context: new HttpContext()
+      .set(CACHING_INVALIDATE, `/users/${userId}`), // Invalidate the cached profile after the request is *ok*
+  });
+}
+```
+
+## Development
+
+This project uses Angular CLI for development. The workspace contains both the library (`projects/ngx-lite-cache`) and a demo application (`projects/app`).
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Suleeyman/ngx-lite-cache.git
+cd ngx-lite-cache
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Development Server
+
+Run the demo application:
 
 ```bash
-ng generate --help
+npm start
+# or
+ng serve
 ```
 
-## Building
+Navigate to `http://localhost:4200/` to see the demo in action.
 
-To build the library, run:
+### Building the Library
 
 ```bash
 ng build ngx-lite-cache
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+The build artifacts will be stored in the `dist/ngx-lite-cache/` directory.
 
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-
-   ```bash
-   cd dist/ngx-lite-cache
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Running Tests
 
 ```bash
-ng test
+ng test ngx-lite-cache
 ```
 
-## Running end-to-end tests
+## Contributing
 
-For end-to-end (e2e) testing, run:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-```bash
-ng e2e
-```
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
+5. Open a Pull Request
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## License
 
-## Additional Resources
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 💬 Feedback
+
+Have suggestions, feedback, or need support? Open an issue or start a discussion — we’d love to hear from you.
+
+## Contribution
+
+We welcome all kinds of contributions!
+
+**♥️ Financial support**
+
+If you want to support me financially you can [buy me a coffee](https://ko-fi.com/ysuleyman) it will certainly motivate me on continously improving the REST API. May Allah rewards you !
