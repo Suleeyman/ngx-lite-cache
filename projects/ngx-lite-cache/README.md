@@ -98,7 +98,7 @@ This project uses Angular CLI for development. The workspace contains both the l
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js
 - npm or yarn
 
 ### Setup
@@ -120,8 +120,6 @@ Run the demo application:
 
 ```bash
 npm start
-# or
-ng serve
 ```
 
 Navigate to `http://localhost:4200/` to see the demo in action.
@@ -164,4 +162,4 @@ We welcome all kinds of contributions!
 
 **♥️ Financial support**
 
-If you want to support me financially you can [buy me a coffee](https://ko-fi.com/ysuleyman) it will certainly motivate me on continously improving the REST API. May Allah rewards you !
+If you want to support me financially you can [buy me a coffee](https://ko-fi.com/ysuleyman) it will certainly motivate me on improving that library
