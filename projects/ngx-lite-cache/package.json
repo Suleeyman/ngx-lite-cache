@@ -1,6 +1,6 @@
 {
   "name": "ngx-lite-cache",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "A lightweight, simple HTTP caching library for Angular applications. This library provides an easy way to cache HTTP responses using Angular's HttpClient interceptors, reducing unnecessary network requests and improving application performance.",
   "repository": {
     "type": "git",
